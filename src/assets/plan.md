@@ -14,4 +14,7 @@
 1--> login in, auth2 , 
 2--> review about movies, 
 3--> fan community(like,comment, share, 4--> event, session with celebrities) , 
-5--> voting system,
+5--> voting system
+6--> OTT
+7--> free streaming
+8--> filter & cacregory creation based on years and genre
