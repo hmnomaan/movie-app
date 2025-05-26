@@ -13,5 +13,5 @@
  features:: 
 1--> login in, auth2 , 
 2--> review about movies, 
- fan community(like,comment, share, event, session with celebrities) , 
- voting system,
+3--> fan community(like,comment, share, 4--> event, session with celebrities) , 
+5--> voting system,
