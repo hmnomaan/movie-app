@@ -10,4 +10,8 @@
 
  next plan : 
 
- features:: login in, auth2 , review about movies, fan community(like,comment, share, event, session with celebrities) , voting system,
+ features:: 
+1--> login in, auth2 , 
+2--> review about movies, 
+ fan community(like,comment, share, event, session with celebrities) , 
+ voting system,
