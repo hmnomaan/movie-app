@@ -6,8 +6,8 @@
 1. dynamic api loading from the movie db
 2. making trending feature
 
- {{--> }}
+ {{--> part by part needs to be done, there should be a dynamic approach to this project. probably will collab next with 1/2 person }}
 
  next plan : 
 
- features:: login in, auth2 , review about movies, fan community , voting system,
+ features:: login in, auth2 , review about movies, fan community(like,comment, share, event, session with celebrities) , voting system,
