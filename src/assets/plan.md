@@ -8,5 +8,4 @@
 
  next plan : 
 
- features::
- 
+ features:: login in, auth2 , review about movies, fan community , voting system,
