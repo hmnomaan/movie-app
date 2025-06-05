@@ -3,9 +3,11 @@ import Search from "./components/Search";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
+import { getTrendingMovies, updateSearchCount } from "./appwrite/appwrite.tsx";
+
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY =import.meta.env.VITE_TMDB_API_KEY;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const API_OPTIONS = {
   method: "GET",
@@ -18,13 +20,13 @@ const App = () => {
   const [searchTerm, setsearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
+  const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState("false");
-const [debouncedSearchTerm,setDebiuncedSearchTerm]=useState('')
+  const [debouncedSearchTerm, setDebiuncedSearchTerm] = useState("");
 
-useDebounce(()=>setDebiuncedSearchTerm(searchTerm),500,[searchTerm])
-  
+  useDebounce(() => setDebiuncedSearchTerm(searchTerm), 500, [searchTerm]);
 
-  const fetchMovies = async (query='') => {
+  const fetchMovies = async (query = "") => {
     setIsLoading("true");
     setErrorMessage("");
     try {
@@ -44,6 +46,10 @@ useDebounce(()=>setDebiuncedSearchTerm(searchTerm),500,[searchTerm])
         return;
       }
       setMovieList(data.results || []);
+
+      if (query && data.results.length > 0) {
+        await updateSearchCount(query, data.results[0]);
+      }
     } catch (error) {
       console.log(`Error fetching movies: ${error}`);
       setErrorMessage("Error fetching movies. Please try again later.");
@@ -52,10 +58,22 @@ useDebounce(()=>setDebiuncedSearchTerm(searchTerm),500,[searchTerm])
     }
   };
 
+  const loadTrendingMovies = async () => {
+    try {
+      const movies = await getTrendingMovies();
+      setTrendingMovies(movies);
+    } catch (error) {
+      console.log(`Error fetching movies: ${error}`);
+    }
+  };
+
   useEffect(() => {
     fetchMovies(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
 
+  useEffect(() => {
+    loadTrendingMovies();
+  }, []);
   return (
     <main>
       <div className="pattern" />
@@ -69,10 +87,29 @@ useDebounce(()=>setDebiuncedSearchTerm(searchTerm),500,[searchTerm])
 
           <Search searchTerm={searchTerm} setSearchTerm={setsearchTerm} />
         </header>
+        <h2>Trending Movies</h2>
+        {isLoading === "true" ? (
+          <Spinner />
+        ) : (
+          trendingMovies.length > 0 && (
+            <section className="trending">
+              <ul>
+                {trendingMovies.map((movie, index) => (
+                  // console.log(movie),
+                  <li key={movie.$id}>
+                    <p>{index + 1}</p>
 
-        {/* <h1 className="text-white">{searchTerm}</h1> */}
+                    <img src={movie.poster_url} alt={movie.title} />
+                    
+                  </li>
+                 
+                ))}
+              </ul>
+            </section>
+          )
+        )}
         <section className="all-movies">
-          <h2 className="mt-[40px]">All Movies</h2>
+          <h2>All Movies</h2>
           {isLoading === "true" ? (
             <Spinner />
           ) : // <p className="text-white">Loading...</p>
