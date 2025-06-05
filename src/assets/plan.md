@@ -3,6 +3,8 @@
  -----------
  ---> what we have now,
 
+1. dynamic api loading from the movie db
+2. making trending feature
 
  {{--> }}
 
