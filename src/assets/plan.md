@@ -18,3 +18,5 @@
 6--> OTT
 7--> free streaming
 8--> filter & cacregory creation based on years and genre
+
+drive link for UI design: https://drive.google.com/file/d/1v_r4sFD8Veuj3TBEbNUjWdzLn-upaqwt/view 
